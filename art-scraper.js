@@ -38,10 +38,10 @@ var skip_counter = 0;
 var roon = new RoonApi({
     extension_id:    'com.theappgineer.art-scraper',
     display_name:    'Art Scraper',
-    display_version: '0.1.0',
+    display_version: '0.1.1',
     publisher:       'The Appgineer',
     email:           'theappgineer@gmail.com',
-    //website:         'https://community.roonlabs.com/t/roon-extension-art-scraper/???',
+    website:         'https://community.roonlabs.com/t/roon-extension-art-scraper/102508',
 
     core_paired: function(core_) {
         core = core_;
@@ -184,7 +184,7 @@ function store_next_image(type, error) {
     } else {
         return;
     }
-    
+
     if (fraction < 1) {
         set_progress(type, Math.round(fraction * 100));
 
@@ -212,14 +212,14 @@ function store_image(type, name, image_key, cb) {
             height: 225,
             format: 'image/jpeg'
         };
-        
+
         name = name.replace(/[\?\/\"<>:]/g, '_');
 
         core.services.RoonApiImage.get_image(image_key, opts, (error, content_type, image) => {
             if (error) {
                 console.error(error, name);
                 skip_counter++;
-                
+
                 cb && cb(type, error);
             } else {
                 fs.writeFile(`${process.cwd()}/art/${type}/${name}.jpg`, image, () => {
@@ -234,6 +234,16 @@ function store_image(type, name, image_key, cb) {
 
 function set_progress(type, progress) {
     svc_status.set_status(`Scraping library for ${type}... [${progress}%]`, false);
+}
+
+function init_signal_handlers() {
+    const handle = function(signal) {
+        process.exit(0);
+    };
+
+    // Register signal handlers to enable a graceful stop of the container
+    process.on('SIGTERM', handle);
+    process.on('SIGINT', handle);
 }
 
 var svc_settings = new RoonApiSettings(roon, {
@@ -260,5 +270,7 @@ roon.init_services({
     required_services: [ RoonApiBrowse, RoonApiImage ],
     provided_services: [ svc_settings, svc_status ]
 });
+
+init_signal_handlers();
 
 roon.start_discovery();
