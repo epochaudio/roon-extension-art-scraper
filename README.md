@@ -2,6 +2,11 @@
 
 艺术刮刀是一个 Roon 扩展程序，用于从您的 Roon 音乐库中批量下载专辑和艺术家的封面图片。
 
+
+![image](https://github.com/user-attachments/assets/a9cfecfb-63c5-4174-b992-c1d14e022bdc)
+
+
+
 ## 功能特点
 
 - 支持批量下载专辑封面
@@ -75,3 +80,6 @@ docker-compose up
 
 感谢 [Roon Labs](https://roonlabs.com/) 提供的优秀 API 支持。
 感谢  https://github.com/TheAppgineer/roon-extension-art-scraper 提供的灵感。
+
+
+
