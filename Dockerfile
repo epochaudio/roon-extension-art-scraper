@@ -1,15 +1,26 @@
-ARG build_arch=amd64
+# 使用Node.js官方镜像作为基础镜像
+FROM node:18-alpine
 
-FROM multiarch/alpine:${build_arch}-v3.12
+# 设置工作目录
+WORKDIR /app
 
-RUN addgroup -g 1000 node && adduser -u 1000 -G node -s /bin/sh -D node && apk add --no-cache nodejs
+# 安装git
+RUN apk add --no-cache git
 
-WORKDIR /home/node
+# 复制package.json和package-lock.json
+COPY package.json package*.json ./
 
-COPY art-scraper.js package.json LICENSE /home/node/
+# 安装依赖
+RUN npm install
 
-RUN apk add --no-cache git npm && npm install && apk del git npm
+# 复制源代码
+COPY . .
 
-USER node
+# 创建art目录
+RUN mkdir -p /app/art/Albums /app/art/Artists
 
-CMD [ "node", "." ]
+# 设置数据卷
+VOLUME [ "/app/art", "/app/.reg" ]
+
+# 运行应用
+CMD [ "node", "art-scraper.js" ]

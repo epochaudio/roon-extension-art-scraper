@@ -1,21 +1,14 @@
 {
-    "name": "roon-extension-art-scraper",
+    "name": "art-scraper",
     "version": "0.1.1",
-    "description": "Roon Extension to scrape cover art images from your library",
+    "description": "Roon Extension for scraping album and artist artwork",
     "main": "art-scraper.js",
-    "author": "The Appgineer",
-    "license": "Apache-2.0",
-    "files": [],
     "dependencies": {
         "mkdirp": "^1.0.4",
         "node-roon-api": "github:roonlabs/node-roon-api",
-        "node-roon-api-settings": "github:roonlabs/node-roon-api-settings",
-        "node-roon-api-status": "github:roonlabs/node-roon-api-status",
         "node-roon-api-browse": "github:roonlabs/node-roon-api-browse",
-        "node-roon-api-image": "github:roonlabs/node-roon-api-image"
-    },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/TheAppgineer/roon-extension-art-scraper.git"
+        "node-roon-api-image": "github:roonlabs/node-roon-api-image",
+        "node-roon-api-settings": "github:roonlabs/node-roon-api-settings",
+        "node-roon-api-status": "github:roonlabs/node-roon-api-status"
     }
 }
