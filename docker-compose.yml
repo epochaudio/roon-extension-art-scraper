@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  art-scraper:
+    build:
+      context: .
+      tags:
+        - "epochaudio/art-scraper:latest"
+        - "epochaudio/art-scraper:1.0.0"
+    container_name: art-scraper
+    volumes:
+      - ./art:/app/art
+      - ./.reg:/app/.reg
+    restart: unless-stopped
+    network_mode: host  # Roon发现需要使用主机网络 
